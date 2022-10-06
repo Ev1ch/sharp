@@ -2,7 +2,7 @@
 
 namespace Core.Collections
 {
-    public class Queue<Type> : ICollection, IEnumerable<Type>
+    public class Queue<Type> : ICollection
     {
         protected readonly Structures.LinkedList<Type> items;
         
@@ -59,7 +59,7 @@ namespace Core.Collections
 
         public Type Dequeue()
         {
-            Structures.LinkedList<Type>.Node<Type>? head = items.First();
+            Structures.LinkedList<Type>.Node<Type>? head = items.First;
 
             if (head == null)
             {
@@ -82,7 +82,7 @@ namespace Core.Collections
 
         public Type Peek()
         {
-            Structures.LinkedList<Type>.Node<Type>? head = items.First();
+            Structures.LinkedList<Type>.Node<Type>? head = items.First;
 
             if (head is null)
             {

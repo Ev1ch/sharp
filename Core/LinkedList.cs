@@ -10,15 +10,9 @@ namespace Core.Structures
 
         public bool IsReadOnly => false;
 
-        public Node<Type>? First()
-        {
-            return head;
-        }
+        public Node<Type>? First => head;
 
-        public Node<Type>? Last()
-        {
-            return head?.Previous;
-        }
+        public Node<Type>? Last => head?.Previous ?? head;
 
         public void Clear()
         {
@@ -161,46 +155,46 @@ namespace Core.Structures
 
         public bool Remove(Type item)
         {
-
-            if (head == null)
-            {
-                throw new NullReferenceException();
-            }
-
             EqualityComparer<Type> comparer = EqualityComparer<Type>.Default;
 
-            if (comparer.Equals(head.Content, item))
+            if (Count == 0)
+            {
+                return false;
+            }
+
+            if (Count == 1 && comparer.Equals(head!.Content, item))
             {
                 head = null;
                 Count--;
                 return true;
             }
 
-            Node<Type> current = head;
+            Node<Type>? current = head!;
 
-            while (current.Next != null)
+            while (current != null && current.Next != head)
             {
-                Node<Type> next = current.Next;
-
-                if (comparer.Equals(next.Content, item))
+                if (comparer.Equals(current.Content, item))
                 {
-                    if (next.Next != null)
+                    Node<Type> previous = current.Previous!;
+                    Node<Type> next = current.Next!;
+
+                    if (previous.Previous == current && previous.Next == current)
                     {
-                        next = next.Next;
-                        next.Previous = current;
-                    }
-                    else
-                    {
-                        next = head;
-                        head.Previous = current;
+                        previous.Previous = null;
+                        previous.Next = null;
+                        Count--;
+
+                        return true;
                     }
 
+                    previous.Next = next;
+                    next.Previous = previous;
                     Count--;
 
                     return true;
                 }
 
-                current = next;
+                current = current.Next;
             }
 
             return false;
@@ -224,15 +218,10 @@ namespace Core.Structures
         {
             if (array == null)
             {
-                throw new NullReferenceException();
+                throw new ArgumentNullException();
             }
 
-            if (index < 0)
-            {
-                throw new IndexOutOfRangeException();
-            }
-
-            if (index > array.Length)
+            if (index < 0 || index > array.Length)
             {
                 throw new IndexOutOfRangeException();
             }
@@ -261,17 +250,20 @@ namespace Core.Structures
             CopyTo((Type[])array, index);
         }
 
-        public Enumerator GetEnumerator()
+        public IEnumerator<Type> GetEnumerator()
         {
-            return new Enumerator(this);
+            bool hasEnumerationStarted = false;
+            Node<Type>? currentNode = head;
+
+            while (currentNode != null && (hasEnumerationStarted && currentNode != head || !hasEnumerationStarted))
+            {
+                hasEnumerationStarted = true;
+                yield return currentNode!.Content;
+                currentNode = currentNode.Next;
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        IEnumerator<Type> IEnumerable<Type>.GetEnumerator()
         {
             return GetEnumerator();
         }
@@ -285,47 +277,6 @@ namespace Core.Structures
             public Node(Type content)
             {
                 Content = content;
-            }
-        }
-
-        public class Enumerator : IEnumerator<Type>, IDisposable
-        {
-            private readonly LinkedList<Type> list;
-            private Node<Type>? currentNode;
-            private bool hasEnumerationStarted = false;
-
-            public Type Current => currentNode!.Content;
-            object? IEnumerator.Current => Current;
-
-            public Enumerator(LinkedList<Type> list)
-            {
-                this.list = list;
-                currentNode = list.head;
-            }
-
-            public void Reset()
-            {
-                hasEnumerationStarted = false;
-                currentNode = list.head;
-            }
-
-            public bool MoveNext()
-            {
-                if (!hasEnumerationStarted)
-                {
-                    currentNode = list.head;
-                    hasEnumerationStarted = true;
-                    return currentNode != null;
-                }
-
-                currentNode = currentNode!.Next;
-
-                return currentNode != list.head;
-            }
-
-            public void Dispose()
-            {
-                
             }
         }
     }
