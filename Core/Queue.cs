@@ -4,13 +4,13 @@ namespace Core.Collections
 {
     public class Queue<Type> : ICollection
     {
-        protected readonly Structures.LinkedList<Type> items;
+        protected readonly Structures.LinkedList<Type> items = new();
         
         public int Count => items.Count;
 
         public bool IsSynchronized => false;
 
-        public object SyncRoot { get; set; }
+        public object SyncRoot { get; set; } = new();
 
         public delegate void ChangeHandler(Queue<Type> sender);
         
@@ -39,11 +39,6 @@ namespace Core.Collections
         {
             OnDequeued(this, item);
             OnChanged(this);
-        }
-
-        public Queue()
-        {
-            items = new Structures.LinkedList<Type>();
         }
 
         public void Clear()
