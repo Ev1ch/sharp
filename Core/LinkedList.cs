@@ -242,7 +242,7 @@ namespace Core.Structures
             {
                 array[index++] = node!.Content;
                 node = node.Next;
-            } while (node != head);
+            } while (node != head && node != null);
         }
 
         public void CopyTo(Array array, int index)
