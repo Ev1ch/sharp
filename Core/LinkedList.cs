@@ -2,17 +2,17 @@
 
 namespace Core.Structures
 {
-    public class LinkedList<Type> : ICollection<Type>
+    public class LinkedList<T> : ICollection<T>
     {
-        protected Node<Type>? head;
+        protected Node<T>? head;
 
         public int Count { get; private set; } = 0;
 
         public bool IsReadOnly => false;
 
-        public Node<Type>? First => head;
+        public Node<T>? First => head;
 
-        public Node<Type>? Last => head?.Previous ?? head;
+        public Node<T>? Last => head?.Previous ?? head;
 
         public void Clear()
         {
@@ -20,9 +20,9 @@ namespace Core.Structures
             Count = 0;
         }
 
-        public void AddFirst(Type item)
+        public void AddFirst(T item)
         {
-            Node<Type> node = new(item);
+            Node<T> node = new(item);
 
             if (head == null)
             {
@@ -39,9 +39,9 @@ namespace Core.Structures
             Count++;
         }
 
-        public void AddLast(Type item)
+        public void AddLast(T item)
         {
-            Node<Type> node = new(item);
+            Node<T> node = new(item);
 
             if (head == null)
             {
@@ -66,9 +66,9 @@ namespace Core.Structures
             Count++;
         }
 
-        public bool Contains(Type item)
+        public bool Contains(T item)
         {
-            EqualityComparer<Type> comparer = EqualityComparer<Type>.Default;
+            EqualityComparer<T> comparer = EqualityComparer<T>.Default;
 
             if (head == null)
             {
@@ -80,7 +80,7 @@ namespace Core.Structures
                 return comparer.Equals(head.Content, item);
             }
 
-            Node<Type> current = head.Next;
+            Node<T> current = head.Next;
 
             while (current != head)
             {
@@ -117,8 +117,8 @@ namespace Core.Structures
                 return;
             }
 
-            Node<Type> next = head.Next;
-            Node<Type> previous = head.Previous!;
+            Node<T> next = head.Next;
+            Node<T> previous = head.Previous!;
 
             next.Previous = previous;
             previous.Next = next;
@@ -141,21 +141,21 @@ namespace Core.Structures
                 return;
             }
 
-            Node<Type> last = head.Previous!;
+            Node<T> last = head.Previous!;
             head.Previous = last.Previous;
             last.Previous!.Next = head;
 
             Count--;
         }
 
-        public void Add(Type item)
+        public void Add(T item)
         {
             AddLast(item);
         }
 
-        public bool Remove(Type item)
+        public bool Remove(T item)
         {
-            EqualityComparer<Type> comparer = EqualityComparer<Type>.Default;
+            EqualityComparer<T> comparer = EqualityComparer<T>.Default;
 
             if (Count == 0)
             {
@@ -169,14 +169,14 @@ namespace Core.Structures
                 return true;
             }
 
-            Node<Type>? current = head!;
+            Node<T>? current = head!;
 
             while (current != null && current.Next != head)
             {
                 if (comparer.Equals(current.Content, item))
                 {
-                    Node<Type> previous = current.Previous!;
-                    Node<Type> next = current.Next!;
+                    Node<T> previous = current.Previous!;
+                    Node<T> next = current.Next!;
 
                     if (previous.Previous == current && previous.Next == current)
                     {
@@ -200,13 +200,13 @@ namespace Core.Structures
             return false;
         }
 
-        protected void RemoveConnections(Node<Type> node)
+        protected void RemoveConnections(Node<T> node)
         {
             node.Next = null;
             node.Previous = null;
         }
 
-        protected void CirculeNodes(Node<Type> a, Node<Type> b)
+        protected void CirculeNodes(Node<T> a, Node<T> b)
         {
             a.Next = b;
             a.Previous = b;
@@ -214,7 +214,7 @@ namespace Core.Structures
             b.Previous = a;
         }
 
-        public void CopyTo(Type[] array, int index)
+        public void CopyTo(T[] array, int index)
         {
             if (array == null)
             {
@@ -231,7 +231,7 @@ namespace Core.Structures
                 throw new ArgumentException();
             }
 
-            Node<Type>? node = head;
+            Node<T>? node = head;
 
             if (node == null)
             {
@@ -247,13 +247,13 @@ namespace Core.Structures
 
         public void CopyTo(Array array, int index)
         {
-            CopyTo((Type[])array, index);
+            CopyTo((T[])array, index);
         }
 
-        public IEnumerator<Type> GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
             bool hasEnumerationStarted = false;
-            Node<Type>? currentNode = head;
+            Node<T>? currentNode = head;
 
             while (currentNode != null && (hasEnumerationStarted && currentNode != head || !hasEnumerationStarted))
             {
@@ -266,18 +266,6 @@ namespace Core.Structures
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
-        }
-
-        public class Node<Type>
-        {
-            public Type Content;
-            public Node<Type>? Previous;
-            public Node<Type>? Next;
-
-            public Node(Type content)
-            {
-                Content = content;
-            }
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=0A71511A_002D7028_002D420A_002D90C1_002D814A52B7B468_002Ff_003AProgram_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=AEEABC5F_002D4527_002D411C_002DA926_002DD98065A0850A_002Ff_003AQueue_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
-	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\Ev1ch\AppData\Local\Temp\JetBrains\ReSharperPlatformVs17\vAny_3de755c3\CoverageData\_Lab 1.1111525077\Snapshot\snapshot.utdcvr</s:String>
+	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\Ev1ch\AppData\Local\Temp\JetBrains\ReSharperPlatformVs17\vAny_3de755c3\CoverageData\_Lab 1.1111525077.01\Snapshot\snapshot.utdcvr</s:String>
 	
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c80a21cb_002D8837_002D42aa_002Da801_002D153fdeb8180e/@EntryIndexedValue">&lt;SessionState ContinuousTestingIsOn="True" ContinuousTestingMode="3" IsActive="True" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c80a21cb_002D8837_002D42aa_002Da801_002D153fdeb8180e/@EntryIndexedValue">&lt;SessionState ContinuousTestingIsOn="True" ContinuousTestingMode="1" IsActive="True" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;And&gt;&#xD;
     &lt;Project Location="D:\University\.NET\Lab 1\Core.Tests" Presentation="&amp;lt;Core.Tests&amp;gt;" /&gt;&#xD;
     &lt;Project Location="D:\University\.NET\Lab 1\Core.Tests" Presentation="&amp;lt;Core.Tests&amp;gt;" /&gt;&#xD;

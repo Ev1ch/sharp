@@ -2,9 +2,9 @@
 
 namespace Core.Collections
 {
-    public class Queue<Type> : ICollection
+    public class Queue<T> : ICollection
     {
-        protected readonly Structures.LinkedList<Type> items = new();
+        protected readonly Structures.LinkedList<T> items = new();
         
         public int Count => items.Count;
 
@@ -12,11 +12,11 @@ namespace Core.Collections
 
         public object SyncRoot { get; set; } = new();
 
-        public delegate void ChangeHandler(Queue<Type> sender);
+        public delegate void ChangeHandler(Queue<T> sender);
         
-        public delegate void EnqueueHandler(Queue<Type> sender, Type item);
+        public delegate void EnqueueHandler(Queue<T> sender, T item);
 
-        public delegate void DequeueHandler(Queue<Type> sender, Type item);
+        public delegate void DequeueHandler(Queue<T> sender, T item);
 
         public event ChangeHandler OnChanged = delegate { };
 
@@ -29,13 +29,13 @@ namespace Core.Collections
             OnChanged(this);
         }
 
-        protected virtual void EnqueuedHandler(Type item)
+        protected virtual void EnqueuedHandler(T item)
         {
             OnEnqueued(this, item);
             OnChanged(this);
         }
 
-        protected virtual void DequeuedHandler(Type item)
+        protected virtual void DequeuedHandler(T item)
         {
             OnDequeued(this, item);
             OnChanged(this);
@@ -47,21 +47,21 @@ namespace Core.Collections
             ChangedHandler();
         }
 
-        public bool Contains(Type item)
+        public bool Contains(T item)
         {
             return items.Contains(item);
         }
 
-        public Type Dequeue()
+        public T Dequeue()
         {
-            Structures.LinkedList<Type>.Node<Type>? head = items.First;
+            Structures.Node<T>? head = items.First;
 
             if (head == null)
             {
                 throw new Exception();
             }
 
-            Type item = head.Content;
+            T item = head.Content;
             items.RemoveFirst();
 
             DequeuedHandler(item);
@@ -69,22 +69,22 @@ namespace Core.Collections
             return item;
         }
 
-        public void Enqueue(Type item)
+        public void Enqueue(T item)
         {
             items.AddLast(item);
             EnqueuedHandler(item);
         }
 
-        public Type Peek()
+        public T Peek()
         {
-            Structures.LinkedList<Type>.Node<Type>? head = items.First;
+            Structures.Node<T>? head = items.First;
 
             if (head is null)
             {
                 throw new InvalidOperationException();
             }
 
-            Type item = head.Content;
+            T item = head.Content;
 
             return item;
         }
@@ -94,9 +94,9 @@ namespace Core.Collections
             return ((IEnumerable)items).GetEnumerator();
         }
 
-        public IEnumerator<Type> GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
-            return ((IEnumerable<Type>)items).GetEnumerator();
+            return ((IEnumerable<T>)items).GetEnumerator();
         }
 
         public void CopyTo(Array array, int index)
