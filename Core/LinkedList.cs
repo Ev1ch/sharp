@@ -218,7 +218,7 @@ namespace Core.Structures
         {
             if (array == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(array));
             }
 
             if (index < 0 || index > array.Length)
@@ -228,7 +228,7 @@ namespace Core.Structures
 
             if (array.Length - index < Count)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Invalid index");
             }
 
             Node<T>? node = head;
