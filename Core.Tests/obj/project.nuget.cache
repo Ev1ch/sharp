@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "DtXCyvDJc/y5Pz2YzyCb8ecrNZH/Z9T20Tg5Tk9m6GCkBt5EADT+jbK4hkOKZyLOvm6oK5a8gnTKHNh/daFpbg==",
+  "dgSpecHash": "4nHQ92sq84pUFAD+aUA3jwA1NazMann6A5DAW0AE1H7TCNcRi/vJfiEjDETu7OlKPBYyxEcviSkgdHtNRRGlyg==",
   "success": true,
   "projectFilePath": "D:\\University\\.NET\\Lab 1\\Core.Tests\\Core.Tests.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Ev1ch\\.nuget\\packages\\autobogus\\2.13.1\\autobogus.2.13.1.nupkg.sha512",
+    "C:\\Users\\Ev1ch\\.nuget\\packages\\bogus\\31.0.3\\bogus.31.0.3.nupkg.sha512",
     "C:\\Users\\Ev1ch\\.nuget\\packages\\coverlet.collector\\3.0.2\\coverlet.collector.3.0.2.nupkg.sha512",
     "C:\\Users\\Ev1ch\\.nuget\\packages\\fluentassertions\\6.7.0\\fluentassertions.6.7.0.nupkg.sha512",
     "C:\\Users\\Ev1ch\\.nuget\\packages\\microsoft.codecoverage\\16.9.4\\microsoft.codecoverage.16.9.4.nupkg.sha512",
@@ -31,6 +33,7 @@
     "C:\\Users\\Ev1ch\\.nuget\\packages\\system.componentmodel.primitives\\4.3.0\\system.componentmodel.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\Ev1ch\\.nuget\\packages\\system.componentmodel.typeconverter\\4.3.0\\system.componentmodel.typeconverter.4.3.0.nupkg.sha512",
     "C:\\Users\\Ev1ch\\.nuget\\packages\\system.configuration.configurationmanager\\4.4.0\\system.configuration.configurationmanager.4.4.0.nupkg.sha512",
+    "C:\\Users\\Ev1ch\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\system.data.datasetextensions.4.5.0.nupkg.sha512",
     "C:\\Users\\Ev1ch\\.nuget\\packages\\system.diagnostics.debug\\4.3.0\\system.diagnostics.debug.4.3.0.nupkg.sha512",
     "C:\\Users\\Ev1ch\\.nuget\\packages\\system.diagnostics.process\\4.3.0\\system.diagnostics.process.4.3.0.nupkg.sha512",
     "C:\\Users\\Ev1ch\\.nuget\\packages\\system.diagnostics.tools\\4.0.1\\system.diagnostics.tools.4.0.1.nupkg.sha512",
