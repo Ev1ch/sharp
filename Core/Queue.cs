@@ -58,7 +58,7 @@ namespace Core.Collections
 
             if (head == null)
             {
-                throw new Exception();
+                throw new InvalidOperationException();
             }
 
             T item = head.Content;
