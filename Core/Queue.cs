@@ -8,10 +8,6 @@ namespace Core.Collections
         
         public int Count => items.Count;
 
-        public bool IsSynchronized => false;
-
-        public object SyncRoot { get; set; } = new();
-
         public delegate void ChangeHandler(Queue<T> sender);
         
         public delegate void EnqueueHandler(Queue<T> sender, T item);
@@ -40,6 +36,10 @@ namespace Core.Collections
             OnDequeued(this, item);
             OnChanged(this);
         }
+
+        public bool IsSynchronized => false;
+
+        public object SyncRoot { get; set; } = new();
 
         public void Clear()
         {
