@@ -99,7 +99,7 @@ namespace Core.Structures
         {
             if (head == null)
             {
-                throw new NullReferenceException();
+                throw new InvalidOperationException();
             }
 
             if (head.Next == null)
@@ -131,7 +131,7 @@ namespace Core.Structures
         {
             if (head == null)
             {
-                throw new NullReferenceException();
+                throw new InvalidOperationException();
             }
 
             if (head.Next == null)
