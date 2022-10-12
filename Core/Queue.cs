@@ -2,7 +2,7 @@
 
 namespace Core.Collections
 {
-    public class Queue<T> : ICollection
+    public class Queue<T> : ICollection, IEnumerable<T>
     {
         protected readonly Structures.LinkedList<T> items = new();
         
@@ -39,7 +39,7 @@ namespace Core.Collections
 
         public bool IsSynchronized => false;
 
-        public object SyncRoot { get; set; } = new();
+        public object SyncRoot { get; } = new();
 
         public void Clear()
         {

@@ -180,8 +180,7 @@ namespace Core.Structures
 
                     if (previous.Previous == current && previous.Next == current)
                     {
-                        previous.Previous = null;
-                        previous.Next = null;
+                        RemoveConnections(previous);
                         Count--;
 
                         return true;
