@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using AutoBogus;
 using NUnit.Framework;
 using FluentAssertions;
@@ -205,10 +206,67 @@ namespace Core.Tests
             }
         }
 
-        public class GetEnumerator
+        public class OnEnqueued
         {
             [Test]
-            public void NotEmptyList_ReturnItems()
+            public void ItemAdded_FireEvent()
+            {
+                int randomItem = AutoFaker.Generate<int>();
+                Queue<int> subject = new();
+                var monitoredSubject = subject.Monitor();
+
+                subject.Enqueue(randomItem);
+
+                monitoredSubject.Should().Raise("OnEnqueued").WithSender(subject).WithArgs<int>((arg) => arg == randomItem);
+            }
+        }
+
+        public class OnDequeued
+        {
+            [Test]
+            public void ItemRemoved_FireEvent()
+            {
+                int randomItem = AutoFaker.Generate<int>();
+                Queue<int> subject = new();
+                var monitoredSubject = subject.Monitor();
+
+                subject.Enqueue(randomItem);
+                subject.Dequeue();
+
+                monitoredSubject.Should().Raise("OnDequeued").WithSender(subject).WithArgs<int>((arg) => arg == randomItem);
+            }
+        }
+
+        public class OnChanged
+        {
+            [Test]
+            public void ItemAdded_FireEvent()
+            {
+                Queue<int> subject = new();
+                var monitoredSubject = subject.Monitor();
+
+                subject.Enqueue(AutoFaker.Generate<int>());
+
+                monitoredSubject.Should().Raise("OnChanged").WithSender(subject);
+            }
+ 
+            [Test]
+            public void ItemRemoved_FireEvent()
+            {
+                Queue<int> subject = new();
+                var monitoredSubject = subject.Monitor();
+
+                subject.Enqueue(AutoFaker.Generate<int>());
+                subject.Dequeue();
+
+                monitoredSubject.Should().Raise("OnDequeued").WithSender(subject);
+            }
+        }
+
+        public class GetEnumeratorWithoutGeneric
+        {
+            [Test]
+            public void NotEmptyQueue_ReturnItems()
             {
                 const int arraySize = 3;
                 int[] array = new int[arraySize];
@@ -222,11 +280,28 @@ namespace Core.Tests
                     subject.Enqueue(item);
                 }
 
-                int j = 0;
-                foreach (int item in subject)
+                ((IEnumerable)subject).Should().BeEquivalentTo(array);
+            }
+        }
+
+        public class GetEnumeratorWithGeneric
+        {
+            [Test]
+            public void NotEmptyQueue_ReturnItems()
+            {
+                const int arraySize = 3;
+                int[] array = new int[arraySize];
+                Queue<int> subject = new();
+
+                int i = 0;
+                while (i < arraySize)
                 {
-                    item.Should().Be(array[j++]);
+                    int item = AutoFaker.Generate<int>();
+                    array[i++] = item;
+                    subject.Enqueue(item);
                 }
+
+                ((System.Collections.Generic.IEnumerable<int>)subject).Should().Equal(array);
             }
         }
 

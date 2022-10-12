@@ -160,10 +160,10 @@ namespace Core.Tests
             [Test]
             public void ItemNotInList_ReturnFalse()
             {
-                int randomItem = AutoFaker.Generate<int>();
                 LinkedList<int> subject = new();
 
-                subject.Add(randomItem);
+                subject.Add(AutoFaker.Generate<int>());
+                subject.Add(AutoFaker.Generate<int>());
 
                 subject.Contains(AutoFaker.Generate<int>()).Should().BeFalse();
             }
@@ -174,6 +174,7 @@ namespace Core.Tests
                 int randomItem = AutoFaker.Generate<int>();
                 LinkedList<int> subject = new();
 
+                subject.Add(AutoFaker.Generate<int>());
                 subject.Add(AutoFaker.Generate<int>());
                 subject.Add(randomItem);
 
@@ -205,13 +206,27 @@ namespace Core.Tests
             }
 
             [Test]
-            public void NotEmptyList_RemoveItem()
+            public void NotEmptyListWithCirculedItems_RemoveItem()
             {
                 int randomItem = AutoFaker.Generate<int>();
                 LinkedList<int> subject = new();
 
                 subject.Add(AutoFaker.Generate<int>());
                 subject.Add(randomItem);
+                subject.RemoveFirst();
+
+                subject.First.Content.Should().Be(randomItem);
+            }
+
+            [Test]
+            public void NotEmptyListWithSomeItems_RemoveItem()
+            {
+                int randomItem = AutoFaker.Generate<int>();
+                LinkedList<int> subject = new();
+
+                subject.Add(AutoFaker.Generate<int>());
+                subject.Add(randomItem);
+                subject.Add(AutoFaker.Generate<int>());
                 subject.RemoveFirst();
 
                 subject.First.Content.Should().Be(randomItem);
@@ -302,6 +317,20 @@ namespace Core.Tests
 
                 subject.Remove(AutoFaker.Generate<int>()).Should().BeFalse();
             }
+
+            [Test]
+            public void NotEmptyListWithSomeItems_RemoveItem()
+            {
+                int randomItem = AutoFaker.Generate<int>();
+                LinkedList<int> subject = new();
+
+                subject.Add(AutoFaker.Generate<int>());
+                subject.Add(randomItem);
+                subject.Add(AutoFaker.Generate<int>());
+                subject.Remove(randomItem);
+
+                subject.Count.Should().Be(2);
+            }
         }
 
         public class CopyTo
@@ -373,10 +402,10 @@ namespace Core.Tests
             }
         }
 
-        public class GetEnumerator
+        public class GetEnumeratorWithGeneric
         {
             [Test]
-            public void NotEmptyList_ReturnItems()
+            public void NotEmptyQueue_ReturnItems()
             {
                 const int arraySize = 3;
                 int[] array = new int[arraySize];
@@ -390,11 +419,7 @@ namespace Core.Tests
                     subject.Add(item);
                 }
 
-                int j = 0;
-                foreach (int item in subject)
-                {
-                    item.Should().Be(array[j++]);
-                }
+                ((System.Collections.Generic.IEnumerable<int>)subject).Should().Equal(array);
             }
         }
     }
