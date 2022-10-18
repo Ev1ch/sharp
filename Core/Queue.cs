@@ -39,7 +39,7 @@ namespace Core.Collections
 
         public bool IsSynchronized => false;
 
-        public object SyncRoot { get; } = new();
+        public object SyncRoot { get; }
 
         public void Clear()
         {
@@ -58,7 +58,7 @@ namespace Core.Collections
 
             if (head == null)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Can not dequeue: collection is empty");
             }
 
             T item = head.Content;
@@ -81,7 +81,7 @@ namespace Core.Collections
 
             if (head is null)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Can not peek: collection is empty");
             }
 
             T item = head.Content;

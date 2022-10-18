@@ -99,7 +99,7 @@ namespace Core.Structures
         {
             if (head == null)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Can not remove first element: collection is empty");
             }
 
             if (head.Next == null)
@@ -131,7 +131,7 @@ namespace Core.Structures
         {
             if (head == null)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Can not remove last element: collection is empty");
             }
 
             if (head.Next == null)
@@ -222,12 +222,12 @@ namespace Core.Structures
 
             if (index < 0 || index > array.Length)
             {
-                throw new IndexOutOfRangeException();
+                throw new IndexOutOfRangeException("Can not copy: index is out of range");
             }
 
             if (array.Length - index < Count)
             {
-                throw new ArgumentException("Invalid index");
+                throw new ArgumentException("Can not copy: invalid index");
             }
 
             Node<T>? node = head;
