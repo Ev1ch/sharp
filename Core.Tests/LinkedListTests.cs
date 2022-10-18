@@ -28,7 +28,8 @@ namespace Core.Tests
 
                 subject.Add(randomItem);
 
-                subject.First.Content.Should().Be(randomItem);
+                subject.First.Should().NotBeNull();
+                subject.First!.Content.Should().Be(randomItem);
             }
         }
 
@@ -191,7 +192,8 @@ namespace Core.Tests
 
                 Action act = () => subject.RemoveFirst();
 
-                act.Should().Throw<InvalidOperationException>();
+                act.Should().Throw<InvalidOperationException>().WithMessage("Can not remove first element: collection is empty");
+
             }
 
             [Test]
@@ -242,7 +244,7 @@ namespace Core.Tests
 
                 Action act = () => subject.RemoveLast();
 
-                act.Should().Throw<InvalidOperationException>();
+                act.Should().Throw<InvalidOperationException>().WithMessage("Can not remove last element: collection is empty");
             }
 
             [Test]
@@ -343,7 +345,7 @@ namespace Core.Tests
 
                 Action act = () => subject.CopyTo(array, 0);
 
-                act.Should().Throw<ArgumentNullException>();
+                act.Should().Throw<ArgumentNullException>("Value cannot be null. (Parameter 'array')");
             }
 
             [Test]
@@ -355,7 +357,7 @@ namespace Core.Tests
 
                 Action act = () => subject.CopyTo(array, arraySize + 1);
 
-                act.Should().Throw<IndexOutOfRangeException>();
+                act.Should().Throw<IndexOutOfRangeException>().WithMessage("Can not copy: index is out of range");
             }
 
             [Test]
@@ -372,7 +374,7 @@ namespace Core.Tests
                     subject.CopyTo(array, 0);
                 };
 
-                act.Should().Throw<ArgumentException>();
+                act.Should().Throw<ArgumentException>().WithMessage("Can not copy: invalid index");
             }
 
             [Test]

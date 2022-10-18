@@ -5,6 +5,7 @@ using NUnit.Framework;
 using FluentAssertions;
 
 using Core.Collections;
+using System.Reflection.Metadata;
 
 namespace Core.Tests
 {
@@ -34,7 +35,7 @@ namespace Core.Tests
 
                 Action act = () => subject.Dequeue();
 
-                act.Should().Throw<InvalidOperationException>();
+                act.Should().Throw<InvalidOperationException>().WithMessage("Can not dequeue: collection is empty");
             }
 
             [Test]
@@ -72,7 +73,7 @@ namespace Core.Tests
 
                 Action act = () => subject.Peek();
 
-                act.Should().Throw<InvalidOperationException>();
+                act.Should().Throw<InvalidOperationException>().WithMessage("Can not peek: collection is empty");
             }
 
             [Test]
@@ -147,7 +148,7 @@ namespace Core.Tests
 
                 Action act = () => subject.CopyTo(array, 0);
 
-                act.Should().Throw<ArgumentNullException>();
+                act.Should().Throw<ArgumentNullException>().WithMessage("Value cannot be null. (Parameter 'array')");
             }
 
             [Test]
@@ -159,7 +160,7 @@ namespace Core.Tests
 
                 Action act = () => subject.CopyTo(array, arraySize + 1);
 
-                act.Should().Throw<IndexOutOfRangeException>();
+                act.Should().Throw<IndexOutOfRangeException>().WithMessage("Can not copy: index is out of range");
             }
 
             [Test]
@@ -176,7 +177,7 @@ namespace Core.Tests
                     subject.CopyTo(array, 0);
                 };
 
-                act.Should().Throw<ArgumentException>();
+                act.Should().Throw<ArgumentException>().WithMessage("Can not copy: invalid index");
             }
 
             [Test]
@@ -319,11 +320,11 @@ namespace Core.Tests
         public class SyncRoot
         {
             [Test]
-            public void AnyQueue_ReturnObject()
+            public void AnyQueue_ReturnNull()
             {
                 Queue<int> subject = new();
 
-                subject.SyncRoot.Should().BeOfType<object>();
+                subject.SyncRoot.Should().BeNull();
             }
         }
     }
